@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		45D598302EFDE61B009E0FE0 /* YouTubePlayerKit in Frameworks */ = {isa = PBXBuildFile; productRef = 45D5982F2EFDE61B009E0FE0 /* YouTubePlayerKit */; };
+		45D5987D2F05DB6A009E0FE0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 45D5987C2F05DB6A009E0FE0 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4572722F2ECDF4C500820A08 /* AwesomeMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AwesomeMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		45D5987C2F05DB6A009E0FE0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -37,6 +39,7 @@
 		457272262ECDF4C500820A08 = {
 			isa = PBXGroup;
 			children = (
+				45D5987C2F05DB6A009E0FE0 /* README.md */,
 				457272312ECDF4C500820A08 /* AwesomeMovies */,
 				457272302ECDF4C500820A08 /* Products */,
 			);
@@ -118,6 +121,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45D5987D2F05DB6A009E0FE0 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

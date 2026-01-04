@@ -9,10 +9,10 @@ import Foundation
 
 struct DataFetcher {
     
-    let baseUrl: String? = ApiConfig.shared?.tmdbBaseUrl
-    let apiKey: String? = ApiConfig.shared?.tmdbApiKey
-    let ytSearchUrl: String? = ApiConfig.shared?.ytSearchUrl
-    let ytApiKey: String? = ApiConfig.shared?.ytApiKey
+    let TMBDBaseUrl: String? = Environment.TMBDBaseUrl
+    let TMBDApiKey: String? = Environment.TMBDApiKey
+    let YtBaseUrl: String? = Environment.YtBaseUrl
+    let YtApiKey: String? = Environment.YtApiKey
     
     func fetchAndDecode<T: Decodable>(url: URL, type: T.Type) async throws -> T {
         // Hacemos la peticion http con urlsession, el try nos da la opcion de agregar un throw para lanzar errores :D
@@ -35,11 +35,11 @@ struct DataFetcher {
     }
     
     private func buildUrl(media: String, type: String) throws -> URL?{
-        guard let baseUrl = baseUrl else {
+        guard let TMBDBaseUrl = TMBDBaseUrl else {
             throw NetworkErrors.missingConfig
         }
         
-        guard let apiKey = apiKey else {
+        guard let TMBDApiKey = TMBDApiKey else {
             throw NetworkErrors.missingConfig
         }
         
@@ -55,10 +55,10 @@ struct DataFetcher {
             throw NetworkErrors.urlBuildFailed
         }
         
-        guard let url = URL(string: baseUrl)?
+        guard let url = URL(string: TMBDBaseUrl)?
             .appending(path: path)
             .appending(queryItems: [
-                URLQueryItem(name: "api_key", value: apiKey)
+                URLQueryItem(name: "api_key", value: TMBDApiKey)
             ]) else {
             throw NetworkErrors.urlBuildFailed
         }
@@ -87,19 +87,19 @@ struct DataFetcher {
     }
     
     func fetchVideoId(for title: String) async throws -> String?{
-        guard let ytSearchUrl = ytSearchUrl else {
+        guard let YtBaseUrl = YtBaseUrl else {
             throw NetworkErrors.missingConfig
         }
         
-        guard let ytApiKey = ytApiKey else {
+        guard let YtApiKey = YtApiKey else {
             throw NetworkErrors.missingConfig
         }
         
         let trailerSearch = title + YtURLStrings.space.rawValue + YtURLStrings.trailer.rawValue
         
-        guard let fetchVideoURL = URL(string: ytSearchUrl)?.appending(queryItems: [
+        guard let fetchVideoURL = URL(string: YtBaseUrl)?.appending(queryItems: [
             URLQueryItem(name: YtURLStrings.queryShorten.rawValue, value: trailerSearch),
-            URLQueryItem(name: YtURLStrings.key.rawValue, value: ytApiKey)
+            URLQueryItem(name: YtURLStrings.key.rawValue, value: YtApiKey)
         ]) else {
             throw NetworkErrors.urlBuildFailed
         }

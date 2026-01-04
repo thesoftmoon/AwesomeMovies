@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>TMBDApiKey</key>
+	<string>$(TMBD_API_KEY)</string>
+	<key>TMBDBaseUrl</key>
+	<string>$(TMBD_BASE_URL)</string>
+	<key>YtApiKey</key>
+	<string>$(YT_API_KEY)</string>
+	<key>YtBaseUrl</key>
+	<string>$(YT_BASE_URL)</string>
+</dict>
+</plist>

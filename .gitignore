@@ -1,4 +1,7 @@
 ApiConfig.json
 apiconfig.json
+ApiConfig.json
 
 .DS_Store
+Production.xcconfig
+Development.xcconfig

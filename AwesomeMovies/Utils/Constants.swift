@@ -20,6 +20,12 @@ struct Constants {
     static let topRatedMoviesString = "Top Rated Movies"
     static let topRatedTvString = "Top Rated TV Shows"
     
+    static let movieSearchString = "Movie Search"
+    static let tvSearchString = "TV Search"
+    
+    //Icons
+    static let tvIconString = "tv"
+    static let movieIconString = "movieclapper"
     
     
     static let searchString = "Search"

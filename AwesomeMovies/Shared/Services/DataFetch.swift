@@ -34,7 +34,12 @@ struct DataFetcher {
         return try decoder.decode(type, from: data)
     }
     
-    private func buildUrl(media: String, type: String) throws -> URL?{
+    /// build URL for TMBD Api
+    /// - Parameter media
+    /// - Parameter type
+    /// - Parameter searchString
+    /// - Returns URL String
+    private func buildUrl(media: String, type: String,  searchString: String? = nil) throws -> URL?{
         guard let TMBDBaseUrl = TMBDBaseUrl else {
             throw NetworkErrors.missingConfig
         }
@@ -45,30 +50,48 @@ struct DataFetcher {
         
         var path:String
         
-        if (type == "trending") {
+        switch type {
+        case "trending":
             path = "3/trending/\(media)/day"
-        } else if (type == "top_rated"){
+        case "top_rated":
             path = "3/\(media)/top_rated"
-        } else if (type == "upcoming"){
+        case "upcoming":
             path = "3/\(media)/upcoming"
-        } else {
+        case "search":
+            path = "3/\(type)/\(media)"
+        default:
             throw NetworkErrors.urlBuildFailed
+        }
+        
+        //if (type == "trending") {
+          //  path = "3/trending/\(media)/day"
+        //} else if (type == "top_rated"){
+          //  path = "3/\(media)/top_rated"
+        //} else if (type == "upcoming"){
+          //  path = "3/\(media)/upcoming"
+        //} else {
+          //  throw NetworkErrors.urlBuildFailed
+        //}
+        
+        var queryItems = [
+            URLQueryItem(name: "api_key", value: TMBDApiKey)
+        ]
+        
+        if let searchString {
+            queryItems.append(URLQueryItem(name: "query", value: searchString))
         }
         
         guard let url = URL(string: TMBDBaseUrl)?
             .appending(path: path)
-            .appending(queryItems: [
-                URLQueryItem(name: "api_key", value: TMBDApiKey)
-            ]) else {
+            .appending(queryItems: queryItems) else {
             throw NetworkErrors.urlBuildFailed
         }
-        
         
         return url
     }
     
-    func fetchTitles(for media: String, by type: String) async throws -> [Title] {
-        let fetchTitleUrl = try buildUrl(media: media, type: type)
+    func fetchTitles(for media: String, by type: String, with searchTitleString: String? = nil) async throws -> [Title] {
+        let fetchTitleUrl = try buildUrl(media: media, type: type, searchString: searchTitleString)
         
         guard let fetchTitleUrl = fetchTitleUrl else {
             throw NetworkErrors.urlBuildFailed

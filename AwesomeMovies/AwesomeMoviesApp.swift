@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct AwesomeMoviesApp: App {
@@ -16,6 +17,7 @@ struct AwesomeMoviesApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-        }
+		}
+		.modelContainer(for: Title.self)
     }
 }

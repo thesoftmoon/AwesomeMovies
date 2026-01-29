@@ -20,7 +20,7 @@ struct ContentView: View {
                 SearchView()
             }
             Tab(Constants.downloadString, systemImage: Constants.downloadIcon){
-                Text(Constants.downloadString)
+                DownloadView()
             }
         }.onAppear{
             print("App loaded...")

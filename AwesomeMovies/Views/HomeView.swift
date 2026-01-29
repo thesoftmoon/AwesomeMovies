@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct HomeView: View {
-    // Creamos un nuevo ViewModel par controlar la UI
+	@Environment(\.modelContext) var modelContext
+	// ViewModel creation to handle UI data
     let viewModel = ViewModel()
     @State private var titleDetailPath = NavigationPath()
+	
        
     var body: some View {
         // path saves all the screens you go through
@@ -56,6 +58,8 @@ struct HomeView: View {
                                 
                                 Button {
                                     // Here you put the button does
+									modelContext.insert(viewModel.heroTitle)
+									try? modelContext.save()
                                 } label: {
                                     //Here you put the button design
                                     Text(Constants.downloadString)

@@ -68,4 +68,20 @@ class Title: Decodable, Identifiable, Hashable {
         overview: "Test",
         posterPath: Constants.testMovieImage3)
     ]
+	
+}
+
+// Add JSON like debug string to see the content of the model in a print()
+extension Title: CustomDebugStringConvertible {
+	var debugDescription: String {
+		"""
+		Title(
+			id: \(id ?? -1),
+			title: \(title ?? "nil"),
+			name: \(name ?? "nil"),
+			overview: \(overview ?? "nil"),
+			posterPath: \(posterPath ?? "nil")
+		)
+		"""
+	}
 }

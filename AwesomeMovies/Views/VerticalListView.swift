@@ -8,42 +8,72 @@
 import SwiftUI
 
 struct VerticalListView: View {
-    var header: String
-    var titles: [Title]
-    let onSelect: (Title)-> Void // Prop function to pass data to father view
-    
-    var body: some View {
-        
-        Text(header).font(.title)
-        
-        VStack(alignment: .leading) {
-            Text("Upcoming movies").font(.title)
-            List(titles){title in
-                AsyncImage(url: URL(string: title.posterPath ?? "")){ image in
-                    HStack{ image
-                        .resizable()
-                        .scaledToFit()
-                        .clipShape(.rect(cornerRadius: 15))
-                        .padding(5)
-                        
-                        Text((title.name ?? title.title) ?? "")
-                            .font(.system(size: 14))
-                            .bold()
-                    }
-                    
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(height: 150)
-                .onTapGesture {
-                    onSelect(title)
-                }
-            }
-        }
-    }
+	var header: String?
+	var titles: [Title]
+	var disableNav: Bool = false
+	let onSelect: (Title) -> Void  // Prop function to pass data to father view
+	@Environment(\.modelContext) var modelContext
+
+	var body: some View {
+
+		if let header {
+			Text(header).font(.title)
+		}
+
+		VStack(alignment: .leading) {
+			Text("Upcoming movies").font(.title)
+			List(titles) { title in
+				AsyncImage(url: URL(string: title.posterPath ?? "")) { image in
+					HStack {
+						image
+							.resizable()
+							.scaledToFit()
+							.clipShape(.rect(cornerRadius: 15))
+							.padding(5)
+						VStack(alignment: .leading) {
+							Text((title.name ?? title.title) ?? "")
+								.font(.system(size: 14))
+								.bold()
+							if disableNav {
+								Text(title.overview ?? "")
+									.font(.system(size: 11))
+							}
+						}
+
+					}
+
+				} placeholder: {
+					ProgressView()
+				}
+				.frame(height: 150)
+				.onTapGesture {
+					if !disableNav {
+						onSelect(title)
+					}
+				}
+				.swipeActions(edge: .leading){
+					if disableNav {
+						Button {
+							modelContext.delete(title)
+							try? modelContext.save()
+							print("Deleting...")
+						} label: {
+							Image(systemName: "trash")
+								.tint(.red)
+							
+						}
+					}
+				}
+
+			}
+		}
+	}
 }
 
 #Preview {
-    VerticalListView(header: Constants.upcomingString ,titles: Title.previewTitles){titles in
-    }
+	VerticalListView(
+		header: Constants.upcomingString,
+		titles: Title.previewTitles
+	) { titles in
+	}
 }

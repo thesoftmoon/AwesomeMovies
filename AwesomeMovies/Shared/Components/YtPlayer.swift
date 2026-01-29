@@ -6,7 +6,7 @@
 //
 
 import YouTubePlayerKit
-import SwiftUICore
+//import SwiftUICore
 import SwiftUI
 
 struct YtPlayer: View {

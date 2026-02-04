@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct VerticalListView: View {
-	var header: String?
 	var titles: [Title]
 	var disableNav: Bool = false
 	let onSelect: (Title) -> Void  // Prop function to pass data to father view
@@ -16,12 +15,7 @@ struct VerticalListView: View {
 
 	var body: some View {
 
-		if let header {
-			Text(header).font(.title)
-		}
-
 		VStack(alignment: .leading) {
-			Text("Upcoming movies").font(.title)
 			List(titles) { title in
 				AsyncImage(url: URL(string: title.posterPath ?? "")) { image in
 					HStack {
@@ -51,7 +45,7 @@ struct VerticalListView: View {
 						onSelect(title)
 					}
 				}
-				.swipeActions(edge: .leading){
+				.swipeActions(edge: .leading) {
 					if disableNav {
 						Button {
 							modelContext.delete(title)
@@ -60,19 +54,19 @@ struct VerticalListView: View {
 						} label: {
 							Image(systemName: "trash")
 								.tint(.red)
-							
+
 						}
 					}
 				}
 
 			}
 		}
+		.padding(.top, -45)
 	}
 }
 
 #Preview {
 	VerticalListView(
-		header: Constants.upcomingString,
 		titles: Title.previewTitles
 	) { titles in
 	}

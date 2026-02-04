@@ -57,7 +57,7 @@ struct TitlesDetailVew: View {
 								try? modelContext.save()
 								
 							} label: {
-								Text(Constants.downloadString)
+								Text(Constants.downloadBtnString)
 									.ghostButton()
 							}
 
@@ -68,6 +68,7 @@ struct TitlesDetailVew: View {
 				}
 			case .failed(let underlyingError):
 				Text(underlyingError.localizedDescription)
+					.errorMsg()
 			}
 		}.task {
 			await viewModel.getVideoId(for: titleName)

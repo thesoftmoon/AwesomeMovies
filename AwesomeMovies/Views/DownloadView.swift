@@ -9,14 +9,15 @@ import SwiftData
 import SwiftUI
 
 struct DownloadView: View {
-	@Query var savedTitles: [Title]
+	@Query(sort: \Title.title) var savedTitles: [Title]
 	@State private var titleDetailPath = NavigationPath()
+	let headerTitle = Constants.downloadTitleString
 
 	var body: some View {
 		NavigationStack(path: $titleDetailPath) {
 
 			if savedTitles.isEmpty {
-				Text("No movies to download")
+				Text("No added titles")
 			} else {
 				VerticalListView(
 					titles: savedTitles,
@@ -27,6 +28,13 @@ struct DownloadView: View {
 				)
 				.navigationDestination(for: Title.self) { title in
 					TitlesDetailVew(title: title)
+				}
+				.toolbar {
+					ToolbarItem(placement: .principal) {
+						Text(headerTitle)
+							.font(.system(size: 24))
+							.bold()
+					}
 				}
 			}
 

@@ -52,7 +52,7 @@ struct HomeView: View {
                                     titleDetailPath.append(viewModel.heroTitle)
                                 } label: {
                                     //Here you put the button design
-                                    Text(Constants.playString)
+                                    Text(Constants.watchString)
                                         .ghostButton()
                                 }
                                 
@@ -62,7 +62,7 @@ struct HomeView: View {
 									try? modelContext.save()
                                 } label: {
                                     //Here you put the button design
-                                    Text(Constants.downloadString)
+                                    Text(Constants.downloadBtnString)
                                         .ghostButton()
                                 }
                             }
@@ -92,7 +92,8 @@ struct HomeView: View {
                         }
                         
                     case .failed(let error):
-                        Text("Error: \(error)")
+						Text(error.localizedDescription)
+							.errorMsg()
                     }
                 }
                 .task{

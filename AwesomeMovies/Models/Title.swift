@@ -15,7 +15,7 @@ struct TMDBAPIObject: Decodable {
 // Hashable let Swift identify if the title are the same, like an ID
 @Model
 class Title: Decodable, Identifiable, Hashable {
-    var id: Int?
+	@Attribute(.unique) var id: Int?
     // The ' is for optional properties
     var title: String?
     var name: String?

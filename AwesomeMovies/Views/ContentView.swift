@@ -19,10 +19,12 @@ struct ContentView: View {
             Tab(Constants.searchString, systemImage: Constants.searchIcon){
                 SearchView()
             }
-            Tab(Constants.downloadString, systemImage: Constants.downloadIcon){
-                Text(Constants.downloadString)
+            Tab(Constants.likedTabTitle, systemImage: Constants.likedIcon){
+                DownloadView()
             }
-        }.onAppear{
+        }
+		.tint(.main) // Here we tint all app system icons and elements
+		.onAppear{
             print("App loaded...")
         }
     }

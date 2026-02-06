@@ -9,10 +9,10 @@ import Foundation
 
 struct DataFetcher {
     
-    let TMBDBaseUrl: String? = Environment.TMBDBaseUrl
-    let TMBDApiKey: String? = Environment.TMBDApiKey
-    let YtBaseUrl: String? = Environment.YtBaseUrl
-    let YtApiKey: String? = Environment.YtApiKey
+    let TMBDBaseUrl: String? = AppEnvironment.TMBDBaseUrl
+    let TMBDApiKey: String? = AppEnvironment.TMBDApiKey
+    let YtBaseUrl: String? = AppEnvironment.YtBaseUrl
+    let YtApiKey: String? = AppEnvironment.YtApiKey
     
     func fetchAndDecode<T: Decodable>(url: URL, type: T.Type) async throws -> T {
         // Hacemos la peticion http con urlsession, el try nos da la opcion de agregar un throw para lanzar errores :D

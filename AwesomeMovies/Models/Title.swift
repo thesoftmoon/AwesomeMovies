@@ -15,7 +15,7 @@ struct TMDBAPIObject: Decodable {
 // Hashable let Swift identify if the title are the same, like an ID
 @Model
 class Title: Decodable, Identifiable, Hashable {
-    var id: Int?
+	@Attribute(.unique) var id: Int?
     // The ' is for optional properties
     var title: String?
     var name: String?
@@ -68,4 +68,20 @@ class Title: Decodable, Identifiable, Hashable {
         overview: "Test",
         posterPath: Constants.testMovieImage3)
     ]
+	
+}
+
+// Add JSON like debug string to see the content of the model in a print()
+extension Title: CustomDebugStringConvertible {
+	var debugDescription: String {
+		"""
+		Title(
+			id: \(id ?? -1),
+			title: \(title ?? "nil"),
+			name: \(name ?? "nil"),
+			overview: \(overview ?? "nil"),
+			posterPath: \(posterPath ?? "nil")
+		)
+		"""
+	}
 }

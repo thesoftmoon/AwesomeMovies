@@ -11,7 +11,7 @@ import SwiftUI
 struct DownloadView: View {
 	@Query(sort: \Title.title) var savedTitles: [Title]
 	@State private var titleDetailPath = NavigationPath()
-	let headerTitle = Constants.downloadTitleString
+	let headerTitle = Constants.likedTitleString
 
 	var body: some View {
 		NavigationStack(path: $titleDetailPath) {

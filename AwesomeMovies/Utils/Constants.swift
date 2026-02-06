@@ -32,10 +32,11 @@ struct Constants {
 	static let searchString = "Search"
 	static let searchIcon = "magnifyingglass"
 
-	static let downloadString = "Liked"
-	static let downloadBtnString = "Like"
-	static let downloadIcon = "arrow.down.to.line"
-	static let downloadTitleString = "Liked Titles"
+	static let likedTabTitle = "Liked"
+	static let likeBtnString = "Like"
+	static let likedBtnString = "Liked"
+	static let likedIcon = "arrow.down.to.line"
+	static let likedTitleString = "Liked Titles"
 
 	static let watchString = "Watch"
 
@@ -65,16 +66,44 @@ enum YtURLStrings: String {
 	case space = " "
 }
 
-extension Text {
+extension View {
 	// This create a function that return a View
-	func ghostButton() -> some View {
+	func secondaryBtn() -> some View {
 		self
 			.frame(width: 100, height: 50)
 			.foregroundStyle(.buttonText)
 			.bold()
 			.background(
 				RoundedRectangle(cornerRadius: 15, style: .continuous)
-					.stroke(.buttonBorder, lineWidth: 4)
+					.stroke(.main, lineWidth: 2)
+			)
+	}
+}
+
+extension View {
+	// This create a function that return a View
+	func primaryBtn() -> some View {
+		self
+			.frame(width: 100, height: 50)
+			.foregroundStyle(.buttonText)
+			.bold()
+			.background(
+				RoundedRectangle(cornerRadius: 15, style: .continuous)
+					.fill(.main)
+			)
+	}
+}
+
+extension View {
+	// This create a function that return a View
+	func likedBtn() -> some View {
+		self
+			.frame(width: 100, height: 50)
+			.foregroundStyle(.buttonText)
+			.bold()
+			.background(
+				RoundedRectangle(cornerRadius: 15, style: .continuous)
+					.fill(.liked)
 			)
 	}
 }

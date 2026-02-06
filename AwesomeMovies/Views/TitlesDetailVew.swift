@@ -6,17 +6,23 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TitlesDetailVew: View {
 	@Environment(\.modelContext) var modelContext
 	// Now we can pass a title like a prop from parent view
 	let title: Title
-	let videoId: String = "eBjzQ1NCXQ4"
+	@Query var savedTitles: [Title]
 
 	let viewModel = ViewModel()
 	var titleName: String {
 		return (title.name ?? title.title) ?? ""
 	}
+	
+	private var isLiked: Bool {
+		savedTitles.contains(where: { $0.id == title.id })
+	}
+	
 	var body: some View {
 
 		GeometryReader { geo in
@@ -45,20 +51,31 @@ struct TitlesDetailVew: View {
 							Spacer()
 
 							Button {
-								
+
 								print("Downloading... \(titleName)")
 								
-								let titleToSave = title
-								titleToSave.title = titleName
-								
-								// We referenced it
-								modelContext.insert(titleToSave)
-								// Then we saved it
+								// We make the reference, delete or insert in this case
+								if isLiked {
+									if let toRemove = savedTitles.first(where: {$0.id == title.id}) {
+										modelContext.delete(toRemove)
+									}
+								} else {
+									// A new instance work better to update liked status
+									let titleToSave = Title(
+										id: title.id,
+										title: titleName,
+										overview: title.overview,
+										posterPath: title.posterPath
+									)
+									modelContext.insert(titleToSave)
+								}
+								//Then we save the operation
 								try? modelContext.save()
-								
+
 							} label: {
-								Text(Constants.downloadBtnString)
-									.ghostButton()
+								
+								LikedBtn(isLiked: isLiked)
+
 							}
 
 							Spacer()
@@ -72,6 +89,7 @@ struct TitlesDetailVew: View {
 			}
 		}.task {
 			await viewModel.getVideoId(for: titleName)
+			print("Esta guardado: \(isLiked)")
 		}
 	}
 }
